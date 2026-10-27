@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スポーツイベントカレンダー</title>
+<style>
+body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 16px;
+}
+h1 { text-align: center; }
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.day {
+  background: white;
+  min-height: 75px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+.event {
+  background: #dcecff;
+  padding: 3px;
+  margin-top: 4px;
+  border-radius: 3px;
+}
+</style>
+</head>
+<body>
+<h1>スポーツイベント</h1>
+<h2 id="month"></h2>
+<div class="calendar" id="calendar"></div>
+<script>
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth();
+document.getElementById("month").textContent =
+  `${year}年${month + 1}月`;
+
+const calendar = document.getElementById("calendar");
+["日","月","火","水","木","金","土"].forEach(d => {
+  const el = document.createElement("div");
+  el.textContent = d;
+  calendar.appendChild(el);
+});
+const first = new Date(year, month, 1).getDay();
+const days = new Date(year, month + 1, 0).getDate();
+for (let i = 0; i < first; i++) {
+  calendar.appendChild(document.createElement("div"));
+}
+for (let d = 1; d <= days; d++) {
+  const el = document.createElement("div");
+  el.className = "day";
+  el.textContent = d;
+  calendar.appendChild(el);
+}
+</script>
+</body>
+</html>
